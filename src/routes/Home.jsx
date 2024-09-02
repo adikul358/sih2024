@@ -1,8 +1,12 @@
 import { MDBContainer, MDBTypography } from "mdb-react-ui-kit";
-import React from "react";
+import React, { useEffect } from "react";
 import TopMenu from "../components/TopMenu";
 
 export default function Home() {
+    useEffect(() => {
+        document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }, [])
+
     return (
         <>
         <TopMenu />

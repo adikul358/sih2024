@@ -3,11 +3,14 @@ import React, { useState, useEffect, useRef } from "react";
 import TopMenu from "../components/TopMenu";
 import { Bar } from "react-chartjs-2";
 import { Chart } from 'chart.js/auto';
+import { useNavigate } from 'react-router-dom';
+
 Chart.register();
 
 export default function Dashboard() {
     const [data, setData] = useState(null);
     const [showChart, setShowChart] = useState(false);
+    const [user, setUser] = useState("");
     const initialized = useRef(false)
 
     const options = {
@@ -30,14 +33,13 @@ export default function Dashboard() {
             legend: { display: false, position: "right", },
         },
     };
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function a() {
             let res = await fetch("http://localhost:5003/api/trendline?freq=daily")
             let resJson = await res.json()
             
-            console.log("resJson", resJson)
-            console.log("resJson values", Object.values(resJson).map(v => parseFloat(v)))
             let tData = {
                 labels: Object.keys(resJson),
                 datasets: [
@@ -45,13 +47,9 @@ export default function Dashboard() {
                         label: "daily Consumption (MW)",
                         data: Object.values(resJson).map(v => parseFloat(v)),
                         backgroundColor: "#094C9D"
-                        // borderColor: 'rgba(75, 192, 192, 0.6)',
-                        // fill: true,
-                        // tension: 0.2
                     }
                 ],
             }
-            console.log("tData", tData)
             setData(tData)
             setShowChart(true)
         }
@@ -60,11 +58,18 @@ export default function Dashboard() {
             a()
         }
 
+        const u = document.cookie
+        if (u == "") { console.log("empty"); navigate("/login", { replace: true }) }
+        else { setUser(u
+            .split('; ')
+            .find((row) => row.startsWith('username='))
+            .split('=')[1]) }
+
     }, [])
     
     return (
         <>
-            <TopMenu user="ak2162@srmist.edu.in" />
+            <TopMenu user={user} />
             <div style={{
                 backgroundImage: "url('/hero-bg.jpg')",
                 backgroundPositionY: "75%",
