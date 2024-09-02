@@ -39,13 +39,15 @@ export default function TopMenu({user}) {
                 flexDirection: "row",
                 padding: 12,
             }}>
-                <div style={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
-                    <img src="/hero-1.png" alt="" />
-                    <div style={{marginLeft: 24, color: "black", fontWeight: "bold"}}>
-                        <MDBTypography style={{fontWeight: "bold"}} variant='h5'>Government of National Capital Territory of Delhi</MDBTypography>
-                        <MDBTypography style={{fontWeight: "bold"}} variant='h5'>राष्ट्रीय राजधानी क्षेत्र दिल्ली सरकार</MDBTypography>
+                <Link to="/">
+                    <div style={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
+                        <img src="/hero-1.png" alt="" />
+                        <div style={{marginLeft: 24, color: "black", fontWeight: "bold"}}>
+                            <MDBTypography style={{fontWeight: "bold"}} variant='h5'>Government of National Capital Territory of Delhi</MDBTypography>
+                            <MDBTypography style={{fontWeight: "bold"}} variant='h5'>राष्ट्रीय राजधानी क्षेत्र दिल्ली सरकार</MDBTypography>
+                        </div>
                     </div>
-                </div>
+                </Link>
                 <img src="/hero-2.png" alt="" style={{marginLeft: "auto", objectFit: "contain", width: "180px", marginRight: 16 }} />
                 <img src="/sih-logo.png" alt="" style={{objectFit: "contain", width: "160px" }} />
 

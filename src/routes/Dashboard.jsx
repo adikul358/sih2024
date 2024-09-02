@@ -1,64 +1,27 @@
-import { MDBContainer, MDBTypography } from "mdb-react-ui-kit";
 import React, { useState, useEffect, useRef } from "react";
+import { MDBContainer, MDBTypography } from "mdb-react-ui-kit";
 import TopMenu from "../components/TopMenu";
-import { Bar } from "react-chartjs-2";
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from 'react-router-dom';
 import Footer from "../components/Footer";
+import {
+  MDBIcons,
+  MDBTabs,
+  MDBTabsItem,
+  MDBTabsLink,
+  MDBTabsContent,
+  MDBTabsPane
+} from 'mdb-react-ui-kit';
+import BarGraph from "../components/BarGraph";
+import { chart } from "react-chartjs-2"
 
 Chart.register();
 
 export default function Dashboard() {
-    const [data, setData] = useState(null);
-    const [showChart, setShowChart] = useState(false);
     const [user, setUser] = useState("");
-    const initialized = useRef(false)
-
-    const options = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            x: {
-                grid: { color: "rgba(0,0,0,0.1)" },
-                ticks: {
-                    color: "rgba(0,0,0,0.5)",
-                }
-            },
-            y: {
-                grid: { color: "rgba(0,0,0,0.1)" },
-                ticks: { color: "rgba(0,0,0,0.5)" },
-                beginAtZero: true,
-            },
-        },
-        plugins: {
-            legend: { display: false, position: "right", },
-        },
-    };
     const navigate = useNavigate();
 
     useEffect(() => {
-        async function a() {
-            let res = await fetch("http://localhost:5003/api/trendline?freq=daily")
-            let resJson = await res.json()
-            
-            let tData = {
-                labels: Object.keys(resJson),
-                datasets: [
-                    {
-                        label: "daily Consumption (MW)",
-                        data: Object.values(resJson).map(v => parseFloat(v)),
-                        backgroundColor: "#094C9D"
-                    }
-                ],
-            }
-            setData(tData)
-            setShowChart(true)
-        }
-        if (!initialized.current) {
-            initialized.current = true
-            a()
-        }
-
         const u = document.cookie
         if (u == "") { console.log("empty"); navigate("/login", { replace: true }) }
         else { setUser(u
@@ -67,6 +30,16 @@ export default function Dashboard() {
             .split('=')[1]) }
 
     }, [])
+
+    const [iconsActive, setIconsActive] = useState('tab1');
+
+    const handleIconsClick = (value) => {
+        if (value === iconsActive) {
+        return;
+        }
+
+        setIconsActive(value);
+    };
     
     return (
         <>
@@ -91,15 +64,39 @@ export default function Dashboard() {
         
         <MDBContainer style={{
             padding: 12,
+            marginTop: 48,
+            marginBottom: 72,
         }}>
             
-            <div style={{
-                width: "90%",
-                height: 640,
-                aspectRatio: 1.3333,
-            }}>
-                {showChart && <Bar options={options} data={data} />}
-            </div>
+            <MDBTabs className='mb-3'>
+                <MDBTabsItem>
+                    <MDBTabsLink onClick={() => handleIconsClick('tab1')} active={iconsActive === 'tab1'}>
+                        30 Days
+                    </MDBTabsLink>
+                </MDBTabsItem>
+                <MDBTabsItem>
+                    <MDBTabsLink onClick={() => handleIconsClick('tab2')} active={iconsActive === 'tab2'}>
+                        8 Weeks
+                    </MDBTabsLink>
+                </MDBTabsItem>
+                <MDBTabsItem>
+                    <MDBTabsLink onClick={() => handleIconsClick('tab3')} active={iconsActive === 'tab3'}>
+                        3 Months
+                    </MDBTabsLink>
+                </MDBTabsItem>
+            </MDBTabs>
+
+            <MDBTabsContent>
+                <MDBTabsPane open={iconsActive === 'tab1'} style={{height: 640, width: "100%"}}>
+                    <BarGraph freq="daily" />
+                </MDBTabsPane>
+                <MDBTabsPane open={iconsActive === 'tab2'} style={{height: 640, width: "100%"}}>
+                    <BarGraph freq="weekly" />
+                </MDBTabsPane>
+                <MDBTabsPane open={iconsActive === 'tab3'} style={{height: 640, width: "100%"}}>
+                    <BarGraph freq="monthly" />
+                </MDBTabsPane>
+            </MDBTabsContent>
         </MDBContainer>
         <Footer />
         </>
