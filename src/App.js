@@ -1,36 +1,21 @@
-import React from 'react';
-import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import Home from "./routes/Home";
+import LogIn from "./routes/LogIn";
+import Dashboard from "./routes/Dashboard";
 
 export default function App() {
   return (
-    <>
-      <MDBRow className='mb-3'>
-        <MDBCol md='8'>
-          md="8"
-        </MDBCol>
-        <MDBCol size='6' md='4'>
-          col="6" md="4"
-        </MDBCol>
-      </MDBRow>
-      <MDBRow className='mb-3'>
-        <MDBCol size='6' md='4'>
-          col="6" md="4"
-        </MDBCol>{' '}
-        <MDBCol size='6' md='4'>
-          col="6" md="4"
-        </MDBCol>{' '}
-        <MDBCol size='6' md='4'>
-          col="6" md="4"
-        </MDBCol>
-      </MDBRow>
-      <MDBRow>
-        <MDBCol size='6'>
-          col="6"
-        </MDBCol>
-        <MDBCol size='6'>
-          col="6"
-        </MDBCol>
-      </MDBRow>
-    </>
+    <Router>
+        <Routes>
+          <Route path="/login" element={<LogIn />}/>
+          <Route path="/dashboard" element={<Dashboard />}/>
+          <Route path="/" element={<Home />}/>
+        </Routes>
+    </Router>
   );
 }
