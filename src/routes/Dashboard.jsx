@@ -81,7 +81,7 @@ export default function Dashboard() {
                 </MDBTabsItem>
                 <MDBTabsItem>
                     <MDBTabsLink onClick={() => handleIconsClick('tab3')} active={iconsActive === 'tab3'}>
-                        3 Months
+                        12 Months
                     </MDBTabsLink>
                 </MDBTabsItem>
             </MDBTabs>
