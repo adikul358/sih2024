@@ -4,6 +4,7 @@ import TopMenu from "../components/TopMenu";
 import { Bar } from "react-chartjs-2";
 import { Chart } from 'chart.js/auto';
 import { useNavigate } from 'react-router-dom';
+import Footer from "../components/Footer";
 
 Chart.register();
 
@@ -69,39 +70,38 @@ export default function Dashboard() {
     
     return (
         <>
-            <TopMenu user={user} />
-            <div style={{
-                backgroundImage: "url('/hero-bg.jpg')",
-                backgroundPositionY: "75%",
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover"
-            }}>
-                <MDBContainer style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    color: "white",
-                    fontWeight: "bold",
-                    height: 240,
-                }}>
-                    <MDBTypography variant="h1" style={{ fontSize: 64, marginBottom: 24 }}>Dashboard</MDBTypography>
-                </MDBContainer>
-            </div>
-            
+        <TopMenu user={user} />
+        <div style={{
+            backgroundImage: "url('/hero-bg.jpg')",
+            backgroundPositionY: "75%",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover"
+        }}>
             <MDBContainer style={{
-                padding: 12,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                color: "white",
+                fontWeight: "bold",
+                height: 240,
             }}>
-                
-                <div style={{
-                    width: "90%",
-                    height: 640,
-                    aspectRatio: 1.3333,
-                    marginBottom: 120
-                }}>
-                    {showChart && <Bar options={options} data={data} />}
-                </div>
+                <MDBTypography variant="h1" style={{ fontSize: 64, marginBottom: 24 }}>Dashboard</MDBTypography>
             </MDBContainer>
-
+        </div>
+        
+        <MDBContainer style={{
+            padding: 12,
+        }}>
+            
+            <div style={{
+                width: "90%",
+                height: 640,
+                aspectRatio: 1.3333,
+            }}>
+                {showChart && <Bar options={options} data={data} />}
+            </div>
+        </MDBContainer>
+        <Footer />
         </>
     )
 }

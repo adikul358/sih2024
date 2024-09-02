@@ -1,6 +1,7 @@
 import { MDBContainer, MDBTypography } from "mdb-react-ui-kit";
 import React, { useEffect } from "react";
 import TopMenu from "../components/TopMenu";
+import Footer from "../components/Footer";
 
 export default function Home() {
     useEffect(() => {
@@ -32,6 +33,7 @@ export default function Home() {
                 </MDBTypography>
             </MDBContainer>
         </div>
+        <Footer />
         </>
     )
 }
