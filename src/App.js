@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { MDBRow, MDBCol } from 'mdb-react-ui-kit';
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <MDBRow className='mb-3'>
+        <MDBCol md='8'>
+          md="8"
+        </MDBCol>
+        <MDBCol size='6' md='4'>
+          col="6" md="4"
+        </MDBCol>
+      </MDBRow>
+      <MDBRow className='mb-3'>
+        <MDBCol size='6' md='4'>
+          col="6" md="4"
+        </MDBCol>{' '}
+        <MDBCol size='6' md='4'>
+          col="6" md="4"
+        </MDBCol>{' '}
+        <MDBCol size='6' md='4'>
+          col="6" md="4"
+        </MDBCol>
+      </MDBRow>
+      <MDBRow>
+        <MDBCol size='6'>
+          col="6"
+        </MDBCol>
+        <MDBCol size='6'>
+          col="6"
+        </MDBCol>
+      </MDBRow>
+    </>
   );
 }
-
-export default App;
